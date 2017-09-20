@@ -11,6 +11,16 @@ inProgressList = []
 doneList = []
 tasksList = []
 
+def newList():
+    global tasksList
+    for i in range(2,5):
+        for widget in framesList[i].winfo_children():
+            widget.destroy()
+    tasksList = []
+    tasksList.append(todoList)
+    tasksList.append(inProgressList)
+    tasksList.append(doneList)
+    
 def save():
     savedList = json.dumps(tasksList)
     file = open("savedTasks.txt","w")
@@ -37,7 +47,7 @@ def createFrames(master):
     menubar = Menu(master)
     #Menu 1
     menu1 = Menu(menubar, tearoff=0)
-    menu1.add_command(label="New list")
+    menu1.add_command(label="New list", command=newList)
     menu1.add_command(label="New task", command=lambda: newTaskFrameUpdate(master))
     menu1.add_command(label="Load", command=load)
     menu1.add_command(label="Save", command=save)
@@ -64,23 +74,23 @@ def createFrames(master):
 	
 	#Status Frames
     todoFrame = Frame(bottomFrame, borderwidth=2)
-    todoFrame.grid(row=1, column=0, padx=10, pady=10)
+    todoFrame.grid(row=1, column=0, padx=10, pady=10, sticky = W+E)
     framesList.append(todoFrame)
 	
     inProgressFrame = Frame(bottomFrame, borderwidth=2)
-    inProgressFrame.grid(row=1, column=1, padx=10, pady=10)
+    inProgressFrame.grid(row=1, column=1, padx=10, pady=10, sticky = W+E)
     framesList.append(inProgressFrame)
 
     doneFrame = Frame(bottomFrame, borderwidth=2)
-    doneFrame.grid(row=1, column=2, padx=10, pady=10)
+    doneFrame.grid(row=1, column=2, padx=10, pady=10, sticky = W+E)
     framesList.append(doneFrame)
 	
     # Adding labels
-    label1 = Label(bottomFrame, text="To Do")
+    label1 = Label(bottomFrame, text="To Do", width=25)
     label1.grid(row=0, column=0, padx=10, pady=5)
-    label2 = Label(bottomFrame, text="In Progress")
+    label2 = Label(bottomFrame, text="In Progress", width=25)
     label2.grid(row=0, column=1, padx=10, pady=5)
-    label3 = Label(bottomFrame, text="Done")
+    label3 = Label(bottomFrame, text="Done", width=25)
     label3.grid(row=0, column=2, padx=10, pady=5)
 
 def newTaskFrameUpdate(master):
@@ -114,7 +124,7 @@ def addTask(buttonName, frameId):
         newTask["bg"]="#04B404"
     newTask["overrelief"]="ridge"
     newTask["wraplength"]=150
-    newTask.pack(fill=BOTH, padx=5, pady=5)
+    newTask.pack(fill=X, padx=5, pady=5)
 
 def move(taskButton):
     global tasksList
@@ -140,7 +150,7 @@ def move(taskButton):
         newButton.pack(fill=BOTH, padx=5, pady=5)
         return
     if taskName in tasksList[2]:
-        taskButton.pack_forget()
+        taskButton.destroy()
         tasksList[2].remove(taskName)
         return
 
