@@ -41,6 +41,7 @@ def load():
     file.close()
 	
 def test():
+    print("The list is:")
     print(tasksList)
 	
 def createFrames(master):
