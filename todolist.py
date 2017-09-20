@@ -40,10 +40,6 @@ def load():
         addTask(item, 4)
     file.close()
 	
-def test():
-    print("The list is:")
-    print(tasksList)
-	
 def createFrames(master):
     menubar = Menu(master)
     #Menu 1
@@ -57,8 +53,7 @@ def createFrames(master):
     menubar.add_cascade(label="File", menu=menu1)
     #Menu 3
     menu2 = Menu(menubar, tearoff=0)
-    menu2.add_command(label="About", command=lambda:showwarning("About", "Developed by Ulysse PETIT"))
-    menu2.add_command(label="Test", command=test)
+    menu2.add_command(label="About", command=lambda:showwarning("About", "Developed by Ulysse PETIT (Pyrok)"))
     menubar.add_cascade(label="Help", menu=menu2)
 
     master.config(menu=menubar)
